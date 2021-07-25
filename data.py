@@ -38,18 +38,18 @@ tweets = api.home_timeline(screen_name=user,
 for tweet in tweets:
     tweet.full_text.encode("utf-8")
     media = tweet.entities.get('media', [])
-    
     outtweets = [[tweet.id_str, 
               tweet.created_at, 
               tweet.favorite_count, 
               tweet.retweet_count, 
-              tweet.full_text.encode("utf-8").decode("utf-8")]
+              tweet.full_text.encode("utf-8").decode("utf-8"),tweet.user.followers_count]
              for idx,tweet in enumerate(tweets)]
     if(len(media) > 0):
             #print(url)
             outtweets.append(media)
-    df = DataFrame(outtweets,columns=["id","created_at","favorite_count","retweet_count", "text"])
-    df.to_csv('%s_tweets6.csv' % user,index=False)
+    
+    df = DataFrame(outtweets,columns=["id","created_at","favorite_count","retweet_count", "text", "followers_count"])
+    df.to_csv('%s_tweets8.csv' % user,index=False)
     df.head(3)
     ylabels = ["favorite_count","retweet_count"]
 
